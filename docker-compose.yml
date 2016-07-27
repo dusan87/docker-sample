@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  app:
+    build: ./_django
+    environment:
+      - ENV_APP_VIRTUALENV_PATH=${ENV_APP_VIRTUALENV_PATH}
+    volumes:
+        - "./_django:/home/docker/"
+#    command: python /home/docker/manage.py runserver 0.0.0.0:80
+
+  server:
+    build: ./_server
+    ports:
+      - "8000:80"
+    volumes_from:
+      - app
